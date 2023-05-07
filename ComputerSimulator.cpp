@@ -1,5 +1,3 @@
-#include <iostream>
-#include <tuple>
 #include <cstdio>
 
 // gates
