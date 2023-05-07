@@ -11,7 +11,7 @@ public:
 
 class Input : public Gate {
 private:
-    bool value;
+    const bool value;
 
 public:
     Input(bool value) : value(value) {}
@@ -72,7 +72,7 @@ public:
     }
 };
 
-// arithmatic units
+// arithmetic units
 
 class HalfAdder {
 private:
@@ -130,29 +130,29 @@ private:
     HalfAdder adder0;
     FullAdder adder1, adder2, adder3, adder4, adder5, adder6, adder7;
     Input adder0CarryInput, adder1CarryInput, adder2CarryInput, adder3CarryInput,
-          adder4CarryInput, adder5CarryInput, adder6CarryInput;
+    adder4CarryInput, adder5CarryInput, adder6CarryInput;
 
-public:
+    public:
     RippleCarryAdder(const Gate& inputA7, const Gate& inputA6, const Gate& inputA5, const Gate& inputA4,
-        const Gate& inputA3, const Gate& inputA2, const Gate& inputA1, const Gate& inputA0,
-        const Gate& inputB7, const Gate& inputB6, const Gate& inputB5, const Gate& inputB4,
-        const Gate& inputB3, const Gate& inputB2, const Gate& inputB1, const Gate& inputB0)
-        : inputA7(inputA7), inputA6(inputA6), inputA5(inputA5), inputA4(inputA4),
-        inputA3(inputA3), inputA2(inputA2), inputA1(inputA1), inputA0(inputA0),
-        inputB7(inputB7), inputB6(inputB6), inputB5(inputB5), inputB4(inputB4),
-        inputB3(inputB3), inputB2(inputB2), inputB1(inputB1), inputB0(inputB0),
-        adder0(inputA0, inputB0),
-        adder1(inputA1, inputB1, Input(adder0.carry())),
-        adder2(inputA2, inputB2, Input(adder1.carry())),
-        adder3(inputA3, inputB3, Input(adder2.carry())),
-        adder4(inputA4, inputB4, Input(adder3.carry())),
-        adder5(inputA5, inputB5, Input(adder4.carry())),
-        adder6(inputA6, inputB6, Input(adder5.carry())),
-        adder7(inputA7, inputB7, Input(adder6.carry())),
-        adder0CarryInput(adder0.carry()), adder1CarryInput(adder1.carry()),
-        adder2CarryInput(adder2.carry()), adder3CarryInput(adder3.carry()),
-        adder4CarryInput(adder4.carry()), adder5CarryInput(adder5.carry()),
-        adder6CarryInput(adder6.carry()) {}
+    const Gate& inputA3, const Gate& inputA2, const Gate& inputA1, const Gate& inputA0,
+    const Gate& inputB7, const Gate& inputB6, const Gate& inputB5, const Gate& inputB4,
+    const Gate& inputB3, const Gate& inputB2, const Gate& inputB1, const Gate& inputB0)
+    : inputA7(inputA7), inputA6(inputA6), inputA5(inputA5), inputA4(inputA4),
+    inputA3(inputA3), inputA2(inputA2), inputA1(inputA1), inputA0(inputA0),
+    inputB7(inputB7), inputB6(inputB6), inputB5(inputB5), inputB4(inputB4),
+    inputB3(inputB3), inputB2(inputB2), inputB1(inputB1), inputB0(inputB0),
+    adder0(inputA0, inputB0),
+    adder1(inputA1, inputB1, Input(adder0.carry())),
+    adder2(inputA2, inputB2, Input(adder1.carry())),
+    adder3(inputA3, inputB3, Input(adder2.carry())),
+    adder4(inputA4, inputB4, Input(adder3.carry())),
+    adder5(inputA5, inputB5, Input(adder4.carry())),
+    adder6(inputA6, inputB6, Input(adder5.carry())),
+    adder7(inputA7, inputB7, Input(adder6.carry())),
+    adder0CarryInput(adder0.carry()), adder1CarryInput(adder1.carry()),
+    adder2CarryInput(adder2.carry()), adder3CarryInput(adder3.carry()),
+    adder4CarryInput(adder4.carry()), adder5CarryInput(adder5.carry()),
+    adder6CarryInput(adder6.carry()) {}
 
 
     bool evaluate0() {
