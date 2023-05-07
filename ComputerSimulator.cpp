@@ -6,7 +6,11 @@
 
 class Gate {
 public:
-    virtual bool evaluate() const = 0;
+    virtual bool evaluate() const = 0;\
+
+    void output() {
+        printf("%d", static_cast<int>(evaluate()));
+    }
 };
 
 class Input : public Gate {
@@ -199,13 +203,13 @@ private:
         return adder7.carry();
     }
 
-    void print() {    
+    void output() {    
         if (carry()) {
             printf("OVERFLOW");
             return;
         } else {
             printf("OUTPUT: ");
-            printf("OUTPUT: %d%d%d%d%d%d%d%d", static_cast<int>(evaluate7()), static_cast<int>(evaluate6()), static_cast<int>(evaluate5()), static_cast<int>(evaluate4()), static_cast<int>(evaluate3()), static_cast<int>(evaluate2()), static_cast<int>(evaluate1()), static_cast<int>(evaluate0()));
+            printf("%d%d%d%d%d%d%d%d", static_cast<int>(evaluate7()), static_cast<int>(evaluate6()), static_cast<int>(evaluate5()), static_cast<int>(evaluate4()), static_cast<int>(evaluate3()), static_cast<int>(evaluate2()), static_cast<int>(evaluate1()), static_cast<int>(evaluate0()));
         }
     }
 };
@@ -214,8 +218,8 @@ private:
 int main() {
     Input One(true);
     Input Zero(false);
-    RippleCarryAdder rippleCarryAdder(AndGate(Zero,One),Zero,Zero,Zero,Zero,Zero,Zero,OrGate(Zero,One),Zero,Zero,Zero,Zero,Zero,Zero,Zero,XorGate(Zero,One));
-    rippleCarryAdder.print();
+    RippleCarryAdder rippleCarryAdder(AndGate(Zero,One),Zero,Zero,Zero,Zero,Zero,Zero,OrGate(Zero,One),Zero,Zero,Zero,Zero,Zero,Zero,Zero,XorGate(Zero,One)); // 00000001 + 00000001 
+    rippleCarryAdder.output();
 
     return 0;
 };
