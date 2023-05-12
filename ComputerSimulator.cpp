@@ -16,7 +16,8 @@ private:
     const bool value;
 
 public:
-    Input(bool value) : value(value) {}
+    Input(bool value) 
+        : value(value) {}
 
     bool evaluate() const override {
         return value;
@@ -29,7 +30,8 @@ private:
     const Gate& input2;
 
 public:
-    AndGate(const Gate& input1, const Gate& input2) : input1(input1), input2(input2) {}
+    AndGate(const Gate& input1, const Gate& input2) 
+        : input1(input1), input2(input2) {}
 
     bool evaluate() const override {
         return input1.evaluate() && input2.evaluate();
@@ -42,7 +44,8 @@ private:
     const Gate& input2;
 
 public:
-    OrGate(const Gate& input1, const Gate& input2) : input1(input1), input2(input2) {}
+    OrGate(const Gate& input1, const Gate& input2) 
+        : input1(input1), input2(input2) {}
 
     bool evaluate() const override {
         return input1.evaluate() || input2.evaluate();
@@ -55,7 +58,8 @@ private:
     const Gate& input2;
 
 public:
-    XorGate(const Gate& input1, const Gate& input2) : input1(input1), input2(input2) {}
+    XorGate(const Gate& input1, const Gate& input2) 
+        : input1(input1), input2(input2) {}
 
     bool evaluate() const override {
         return input1.evaluate() != input2.evaluate();
@@ -67,7 +71,8 @@ private:
     const Gate& input;
 
 public:
-    NotGate(const Gate& input) : input(input) {}
+    NotGate(const Gate& input) 
+        : input(input) {}
 
     bool evaluate() const override {
         return !input.evaluate();
@@ -82,7 +87,8 @@ private:
     const Gate& input2;
 
 public:
-    HalfAdder(const Gate& input1, const Gate& input2) : input1(input1), input2(input2) {}
+    HalfAdder(const Gate& input1, const Gate& input2) 
+        : input1(input1), input2(input2) {}
 
     bool sum() const {
         // the sum output is an XOR of the two inputs
