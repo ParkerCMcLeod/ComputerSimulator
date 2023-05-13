@@ -117,7 +117,7 @@ private:
 public:
     FullAdder(const Gate& carryInput, const Gate& input1, const Gate& input2)
         : halfAdder1(input1, input2), halfAdder1Sum(halfAdder1.sum()), halfAdder1Carry(halfAdder1.carry()),
-        halfAdder2(halfAdder1Sum, carryInput), halfAdder2Carry(halfAdder2.carry()), halfAdder2Sum(halfAdder2.sum())
+        halfAdder2(halfAdder1Carry, carryInput), halfAdder2Carry(halfAdder2.carry()), halfAdder2Sum(halfAdder2.sum())
     {}
 
     bool sum() const {
