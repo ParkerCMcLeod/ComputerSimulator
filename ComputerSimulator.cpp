@@ -131,6 +131,7 @@ public:
     }
 };
 
+
 class RippleCarryAdder {
 private:
     const Gate& inputA7;
@@ -244,8 +245,8 @@ int main() {
     Input one(true);
     Input zero(false);
 
-    RippleCarryAdder rippleCarryAdder(zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, one, one, one); // 00000000 + 00000111
-    rippleCarryAdder.output(); // should be 00000111 but is 00000001
+    RippleCarryAdder rippleCarryAdder(zero, zero, zero, zero, zero, zero, zero, one, zero, zero, zero, zero, zero, zero, zero, one); // 00000001 + 00000001
+    rippleCarryAdder.output(); // 00000010
 
     return 0;
 }
