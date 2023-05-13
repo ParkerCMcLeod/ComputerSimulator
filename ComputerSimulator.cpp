@@ -241,51 +241,6 @@ public:
     }
 };
 
-// outputs in 1's compliemnt
-class RippleCarrySubtractor {
-private:
-    const Gate& inputA7;
-    const Gate& inputA6;
-    const Gate& inputA5;
-    const Gate& inputA4;
-    const Gate& inputA3;
-    const Gate& inputA2;
-    const Gate& inputA1;
-    const Gate& inputA0;
-    const Gate& inputB7;
-    const Gate& inputB6;
-    const Gate& inputB5;
-    const Gate& inputB4;
-    const Gate& inputB3;
-    const Gate& inputB2;
-    const Gate& inputB1;
-    const Gate& inputB0;
-    HalfAdder adder0;
-    bool diff0;
-    Input adder0Carry;
-    FullAdder adder1;
-    bool diff1;
-    Input adder1Carry;
-    FullAdder adder2;
-    bool diff2;
-    Input adder2Carry;
-    FullAdder adder3;
-    bool diff3;
-    Input adder3Carry;
-    FullAdder adder4;
-    bool diff4;
-    Input adder4Carry;
-    FullAdder adder5;
-    bool diff5;
-    Input adder5Carry;
-    FullAdder adder6;
-    bool diff6;
-    Input adder6Carry;
-    FullAdder adder7;
-    bool diff7;
-    Input adder7Carry;
-    bool borrow;
-
 int main() {
     Input one(true);
     Input zero(false);
