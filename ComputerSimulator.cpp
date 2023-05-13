@@ -2,17 +2,19 @@
 #include <stdexcept>
 #include <iostream>
 
-// gates
-
+// this class ensures the presence of an evaluate implementation
+// the evaluate function recursively propagates the input value
+// until a base case is reached (Input), which returns a bool value
 class Gate {
 public:
     virtual bool evaluate() const = 0;
-    
+
     void output() {
         std::cout << evaluate() << std::endl;
     }
 };
 
+// represents a electrical input
 class Input : public Gate {
 private:
     bool value;
@@ -77,7 +79,7 @@ public:
     {}
 
     bool evaluate() const override {
-        return !input.evaluate();
+        return !(input.evaluate());
     }
 };
 
@@ -115,7 +117,8 @@ public:
     {}
 
     bool sum() const {
-        return halfAdder1.sum() ^ halfAdder2.sum();
+        XorGate xorGate(Input(halfAdder1.sum()), Input(halfAdder2.sum()));
+        return xorGate.evaluate();
     }
 
     bool carry() const {
@@ -170,21 +173,21 @@ private:
 
 public:
     RippleCarryAdder(const Gate& inputA7, const Gate& inputA6, const Gate& inputA5, const Gate& inputA4,
-                     const Gate& inputA3, const Gate& inputA2, const Gate& inputA1, const Gate& inputA0,
-                     const Gate& inputB7, const Gate& inputB6, const Gate& inputB5, const Gate& inputB4,
-                     const Gate& inputB3, const Gate& inputB2, const Gate& inputB1, const Gate& inputB0)
+                    const Gate& inputA3, const Gate& inputA2, const Gate& inputA1, const Gate& inputA0,
+                    const Gate& inputB7, const Gate& inputB6, const Gate& inputB5, const Gate& inputB4,
+                    const Gate& inputB3, const Gate& inputB2, const Gate& inputB1, const Gate& inputB0)
         : inputA7(inputA7), inputA6(inputA6), inputA5(inputA5), inputA4(inputA4), inputA3(inputA3), inputA2(inputA2),
-          inputA1(inputA1), inputA0(inputA0), inputB7(inputB7), inputB6(inputB6), inputB5(inputB5), inputB4(inputB4),
-          inputB3(inputB3), inputB2(inputB2), inputB1(inputB1), inputB0(inputB0),
-          adder0(inputA0, inputB0), sum0(adder0.sum()), adder0Carry(adder0.carry()),
-          adder1(adder0Carry, inputA1, inputB1), sum1(adder1.sum()), adder1Carry(adder1.carry()),
-          adder2(adder1Carry, inputA2, inputB2), sum2(adder2.sum()), adder2Carry(adder2.carry()),
-          adder3(adder2Carry, inputA3, inputB3), sum3(adder3.sum()), adder3Carry(adder3.carry()),
-          adder4(adder3Carry, inputA4, inputB4), sum4(adder4.sum()), adder4Carry(adder4.carry()),
-          adder5(adder4Carry, inputA5, inputB5), sum5(adder5.sum()), adder5Carry(adder5.carry()),
-          adder6(adder5Carry, inputA6, inputB6), sum6(adder6.sum()), adder6Carry(adder6.carry()),
-          adder7(adder6Carry, inputA7, inputB7), sum7(adder7.sum()), adder7Carry(adder7.carry()),
-          overflow(adder7Carry.evaluate()) 
+        inputA1(inputA1), inputA0(inputA0), inputB7(inputB7), inputB6(inputB6), inputB5(inputB5), inputB4(inputB4),
+        inputB3(inputB3), inputB2(inputB2), inputB1(inputB1), inputB0(inputB0),
+        adder0(inputA0, inputB0), sum0(adder0.sum()), adder0Carry(adder0.carry()),
+        adder1(adder0Carry, inputA1, inputB1), sum1(adder1.sum()), adder1Carry(adder1.carry()),
+        adder2(adder1Carry, inputA2, inputB2), sum2(adder2.sum()), adder2Carry(adder2.carry()),
+        adder3(adder2Carry, inputA3, inputB3), sum3(adder3.sum()), adder3Carry(adder3.carry()),
+        adder4(adder3Carry, inputA4, inputB4), sum4(adder4.sum()), adder4Carry(adder4.carry()),
+        adder5(adder4Carry, inputA5, inputB5), sum5(adder5.sum()), adder5Carry(adder5.carry()),
+        adder6(adder5Carry, inputA6, inputB6), sum6(adder6.sum()), adder6Carry(adder6.carry()),
+        adder7(adder6Carry, inputA7, inputB7), sum7(adder7.sum()), adder7Carry(adder7.carry()),
+        overflow(adder7Carry.evaluate()) 
     {}
 
     bool getSum0() const {
@@ -237,8 +240,8 @@ int main() {
     Input one(true);
     Input zero(false);
 
-    RippleCarryAdder rippleCarryAdder(zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, one, one, one);
-    rippleCarryAdder.output();
+    RippleCarryAdder rippleCarryAdder(zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, zero, one, one, one); // 00000000 + 00000111
+    rippleCarryAdder.output(); // should be 00000111 but is 00000001
 
     return 0;
 }
