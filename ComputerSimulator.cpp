@@ -72,14 +72,14 @@ public:
 
 class NotGate : public Gate {
 private:
-    const Gate& input;
+    const Gate& input1;
 
 public:
-    NotGate(const Gate& input) : input(input) 
+    NotGate(const Gate& input1) : input1(input1) 
     {}
 
     bool evaluate() const override {
-        return !(input.evaluate());
+        return !(input1.evaluate());
     }
 };
 
@@ -109,20 +109,24 @@ class FullAdder {
 private:
     HalfAdder halfAdder1;
     Input halfAdder1Sum;
+    Input halfAdder1Carry;
     HalfAdder halfAdder2;
+    Input halfAdder2Sum;
+    Input halfAdder2Carry;
 
 public:
     FullAdder(const Gate& carryInput, const Gate& input1, const Gate& input2)
-        : halfAdder1(input1, input2), halfAdder1Sum(halfAdder1.sum()), halfAdder2(halfAdder1Sum, carryInput) 
+        : halfAdder1(input1, input2), halfAdder1Sum(halfAdder1.sum()), halfAdder1Carry(halfAdder1.carry()),
+        halfAdder2(halfAdder1Sum, carryInput), halfAdder2Carry(halfAdder2.carry()), halfAdder2Sum(halfAdder2.sum())
     {}
 
     bool sum() const {
-        XorGate xorGate(Input(halfAdder1.sum()), Input(halfAdder2.sum()));
+        XorGate xorGate(halfAdder1Sum, halfAdder2Sum);
         return xorGate.evaluate();
     }
 
     bool carry() const {
-        OrGate orGate(Input(halfAdder1.carry()), Input(halfAdder2.carry()));
+        OrGate orGate(halfAdder1Carry, halfAdder2Carry);
         return orGate.evaluate();
     }
 };
@@ -173,9 +177,9 @@ private:
 
 public:
     RippleCarryAdder(const Gate& inputA7, const Gate& inputA6, const Gate& inputA5, const Gate& inputA4,
-                    const Gate& inputA3, const Gate& inputA2, const Gate& inputA1, const Gate& inputA0,
-                    const Gate& inputB7, const Gate& inputB6, const Gate& inputB5, const Gate& inputB4,
-                    const Gate& inputB3, const Gate& inputB2, const Gate& inputB1, const Gate& inputB0)
+                     const Gate& inputA3, const Gate& inputA2, const Gate& inputA1, const Gate& inputA0,
+                     const Gate& inputB7, const Gate& inputB6, const Gate& inputB5, const Gate& inputB4,
+                     const Gate& inputB3, const Gate& inputB2, const Gate& inputB1, const Gate& inputB0)
         : inputA7(inputA7), inputA6(inputA6), inputA5(inputA5), inputA4(inputA4), inputA3(inputA3), inputA2(inputA2),
         inputA1(inputA1), inputA0(inputA0), inputB7(inputB7), inputB6(inputB6), inputB5(inputB5), inputB4(inputB4),
         inputB3(inputB3), inputB2(inputB2), inputB1(inputB1), inputB0(inputB0),
